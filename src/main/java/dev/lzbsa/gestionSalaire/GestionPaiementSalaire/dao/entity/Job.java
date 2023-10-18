@@ -25,4 +25,7 @@ public class Job {
     private Double baseSalary;
 
     private String classification;
+
+    @OneToMany
+    private Mission mission;
 }
