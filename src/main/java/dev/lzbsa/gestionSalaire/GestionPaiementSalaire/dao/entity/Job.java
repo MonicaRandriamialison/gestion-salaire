@@ -19,13 +19,15 @@ public class Job {
 
     @OneToMany(mappedBy = "job")
     private List<Employee> employees;
-
+    
     private String title;
 
     private Double baseSalary;
 
     private String classification;
 
-    @OneToMany
-    private Mission mission;
+    @OneToMany(mappedBy = "job")
+    private List<Mission> missions;
+
+    private Service service;
 }

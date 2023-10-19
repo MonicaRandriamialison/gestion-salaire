@@ -1,20 +1,19 @@
 package dev.lzbsa.gestionSalaire.GestionPaiementSalaire.dao.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Compensation {
+public class Compensation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -22,4 +21,6 @@ public class Compensation {
     private String name;
 
     private Double amount;
+
+    private List<Mission> missions;
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,19 +14,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Mission {
+public class Mission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String title;
 
-
     private String description;
 
-    @ManyToMany(mappedBy = "mission")
-    private List<Job> jobs;
+    @ManyToOne
+    private Job job;
 
-    @ManyToMany
     private Compensation compensation;
 }

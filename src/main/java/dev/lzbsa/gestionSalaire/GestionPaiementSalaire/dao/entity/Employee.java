@@ -40,6 +40,14 @@ public class Employee {
     @ManyToOne
     private Job job;
 
+    private Advence advence;
+
+    private Salary salary;
+
+    private Charge charge;
+
+    private AdditionalAmount additionalAmount;
+
 
 }
 
