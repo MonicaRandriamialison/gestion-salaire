@@ -16,4 +16,6 @@ public interface EmployeeService {
     public EmployeeDTO updateEmployee(EmployeeDTO employee);
 
     public void deleteEmployee(UUID employeeId);
+
+    public EmployeeDTO assignEmployeeToJob (UUID employeeId , UUID jobId);
 }

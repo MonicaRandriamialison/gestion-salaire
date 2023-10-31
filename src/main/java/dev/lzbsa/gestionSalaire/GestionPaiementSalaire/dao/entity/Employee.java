@@ -25,8 +25,10 @@ public class Employee {
 
     private Long registrationNumber;
 
+    @Column(unique = true, nullable = false)
     private String cin;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String phone;

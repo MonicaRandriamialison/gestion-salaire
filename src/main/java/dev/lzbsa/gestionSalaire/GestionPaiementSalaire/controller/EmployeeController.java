@@ -34,6 +34,11 @@ public class EmployeeController {
         return employeeService.createEmployee(employeeDTO);
     }
 
+    @PostMapping("assign/{employeeId}/job/{jobId}")
+    public EmployeeDTO assignEmployeeToJob (@PathVariable("employeeId") UUID employeeId, @PathVariable("jobId") UUID jobId){
+        return employeeService.assignEmployeeToJob(employeeId,jobId);
+    }
+
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeDTO updateEmployee(@PathVariable("id")UUID employeeId, @RequestBody EmployeeDTO employeeDTO){
@@ -47,4 +52,7 @@ public class EmployeeController {
         employeeService.deleteEmployee(employeeId);
         return new ResponseEntity<>("User successfully deleted!",HttpStatus.OK);
     }
+
+
+
 }

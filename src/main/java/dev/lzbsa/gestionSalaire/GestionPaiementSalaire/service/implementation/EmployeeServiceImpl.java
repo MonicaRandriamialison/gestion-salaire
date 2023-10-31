@@ -2,7 +2,9 @@ package dev.lzbsa.gestionSalaire.GestionPaiementSalaire.service.implementation;
 
 import dev.lzbsa.gestionSalaire.GestionPaiementSalaire.dao.DTO.EmployeeDTO;
 import dev.lzbsa.gestionSalaire.GestionPaiementSalaire.dao.entity.Employee;
+import dev.lzbsa.gestionSalaire.GestionPaiementSalaire.dao.entity.Job;
 import dev.lzbsa.gestionSalaire.GestionPaiementSalaire.dao.repository.EmployeeRepository;
+import dev.lzbsa.gestionSalaire.GestionPaiementSalaire.dao.repository.JobRepository;
 import dev.lzbsa.gestionSalaire.GestionPaiementSalaire.exception.RessourceNotFoundException;
 import dev.lzbsa.gestionSalaire.GestionPaiementSalaire.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
     private ModelMapper modelMapper;
+    private JobRepository jobRepository;
 
     @Override
     public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
@@ -64,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setNumberOfCnaps(employeeDTO.getNumberOfCnaps());
 
         Employee updatedEmployee = employeeRepository.save(employee);
-        return modelMapper.map(employee,EmployeeDTO.class);
+        return modelMapper.map(updatedEmployee,EmployeeDTO.class);
 
 
     }
@@ -73,4 +76,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(UUID employeeId) {
         employeeRepository.deleteById(employeeId);
     }
+
+    @Override
+    public EmployeeDTO assignEmployeeToJob(UUID employeeId, UUID jobId) {
+
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+        Optional<Job> optionalJob = jobRepository.findById(jobId);
+
+        if (optionalJob.isPresent()){
+           Job job = optionalJob.get();
+            if (optionalEmployee.isPresent()){
+               Employee employee = optionalEmployee.get();
+               employee.setJob(job);
+               job.getEmployees().add(employee);
+               jobRepository.save(job);
+               employeeRepository.save(employee);
+               return modelMapper.map(employee, EmployeeDTO.class);
+            }else throw new RessourceNotFoundException(employeeId ,Employee.class.getName());
+        }else throw new RessourceNotFoundException(jobId,Job.class.getName());
+
+    }
+
+
 }

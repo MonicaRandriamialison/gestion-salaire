@@ -17,7 +17,7 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany
     private List<Employee> employees;
     
     private String title;
