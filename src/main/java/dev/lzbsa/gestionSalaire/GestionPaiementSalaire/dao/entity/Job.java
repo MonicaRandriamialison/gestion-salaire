@@ -29,5 +29,6 @@ public class Job {
     @OneToMany(mappedBy = "job")
     private List<Mission> missions;
 
-    private Service service;
+    @OneToMany(mappedBy = "job")
+    private List<Service> service;
 }
